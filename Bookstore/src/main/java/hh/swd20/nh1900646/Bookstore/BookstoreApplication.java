@@ -19,7 +19,7 @@ public class BookstoreApplication {
 	}
 	//  testidatan luonti H2-testitietokantaan aina sovelluksen käynnistyessä
 	@Bean
-	public CommandLineRunner carDemo(BookRepository bookRepository) { 
+	public CommandLineRunner bookDemo(BookRepository bookRepository) { 
 		return (args) -> {
 			log.info("save a couple of books");
 			bookRepository.save(new Book("When god was born", "R. Walker", "isbn123", 1989, 49.9));
