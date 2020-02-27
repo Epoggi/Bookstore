@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 
 import hh.swd20.nh1900646.Bookstore.domain.Book;
 import hh.swd20.nh1900646.Bookstore.domain.BookRepository;
+import hh.swd20.nh1900646.Bookstore.domain.Category;
+import hh.swd20.nh1900646.Bookstore.domain.CategoryRepository;
 
 @SpringBootApplication
 public class BookstoreApplication {
@@ -30,6 +32,19 @@ public class BookstoreApplication {
 				log.info(book.toString());
 			}
 
-		};
+		};	}
+		@Bean
+		public CommandLineRunner categoryDemo(CategoryRepository categoryRepository) { 
+			return (args) -> {
+				log.info("save a couple of categories");
+				categoryRepository.save(new Category("Comic"));
+				categoryRepository.save(new Category("Adult"));	
+				categoryRepository.save(new Category("Educational"));
+				log.info("fetch all books");
+				for (Category category: categoryRepository.findAll()) {
+					log.info(category.toString());
+				}
+
+			};
 }
 }
