@@ -1,8 +1,8 @@
 package hh.swd20.nh1900646.Bookstore.web;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.util.List;
-
 import hh.swd20.nh1900646.Bookstore.domain.Book;
 import hh.swd20.nh1900646.Bookstore.domain.BookRepository;
+import hh.swd20.nh1900646.Bookstore.domain.Category;
+import hh.swd20.nh1900646.Bookstore.domain.CategoryRepository;
 
 @Controller
 
@@ -27,6 +27,8 @@ public class BookController {
 
 @Autowired
 BookRepository bookRepository;
+@Autowired
+CategoryRepository categoryRepository;
 
 //Kirjojen listaus
 	@RequestMapping(value = "/books", method = RequestMethod.GET)
@@ -37,7 +39,19 @@ BookRepository bookRepository;
 		// palautetaan sopivan käyttöliittymätemplaten nimi
 		model.addAttribute("books", books);
 		return "booklist";
-
+	}
+	//Categorioiden listaus
+	@RequestMapping(value="/categories", method = RequestMethod.GET)
+	public String getCategories (Model model) {
+		List<Category> categories =(List<Category>) categoryRepository.findAll();
+		model.addAttribute("categories", categories);
+		return "categorylist";
+	}
+	//Categorian lisäys
+	@RequestMapping(value="/addcategory", method = RequestMethod.POST)
+	public String addCategory(@ModelAttribute Category category) {
+		categoryRepository.save(category);
+		return "categorylist";
 	}
 	// tyhjän lomakkeen muodostaminen
 	@RequestMapping(value= "/newbook", method = RequestMethod.GET)

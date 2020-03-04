@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 //h2 testidatabase käyttöön
 //Merkitään olio database olioksi
@@ -17,6 +19,10 @@ public class Book {
 	private int year;
 	private double price;
 	
+    @ManyToOne
+    @JoinColumn(name = "categoryid")
+    private Category category;
+	
 
 //Konstruktorit
 
@@ -29,13 +35,14 @@ public class Book {
 		this.price = 0.0;
 	}
 
-	public Book(String title, String author, String isbn, int year, double price) {
+	public Book(String title, String author, String isbn, int year, double price, Category category) {
 		super();
 		this.title = title;
 		this.author = author;
 		this.isbn = isbn;
 		this.year = year;
 		this.price = price;
+		this.category = category;
 	}
 	
 //Getterit ja Setterit
@@ -43,6 +50,14 @@ public class Book {
 
 	public long getId() {
 		return id;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 
 	public void setId(long id) {
@@ -89,11 +104,10 @@ public class Book {
 		this.price = price;
 	}		
 	
-//toString
-	@Override
+@Override
 	public String toString() {
-		return "Book [title=" + title + ", author=" + author + ", isbn=" + isbn + ", year=" + year
-				+ ", price=" + price + "]";
+		return "Book [id=" + id + ", title=" + title + ", author=" + author + ", isbn=" + isbn + ", year=" + year
+				+ ", price=" + price + ", category=" + category + "]";
 	}
 
 }
