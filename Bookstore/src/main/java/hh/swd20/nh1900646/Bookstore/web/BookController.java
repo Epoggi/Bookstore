@@ -57,6 +57,7 @@ CategoryRepository categoryRepository;
 	@RequestMapping(value= "/newbook", method = RequestMethod.GET)
 	public String getNewBookForm (Model model) {
 		model.addAttribute("book",new Book());
+		model.addAttribute("categories", categoryRepository.findAll());
 		return "bookform";
 	}
 	//syötettyjen tietojen vastaanotto
@@ -75,6 +76,8 @@ CategoryRepository categoryRepository;
 	@RequestMapping(value="/newbook/{id}", method = RequestMethod.GET)
 	public String getBooktoEdit(@PathVariable("id") Long bookId, Model model) {
 		model.addAttribute("book", bookRepository.findById(bookId));
+
+		model.addAttribute("categories", categoryRepository.findAll());
 		return "bookform";
 	}
 
