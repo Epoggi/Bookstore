@@ -15,17 +15,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Book {
 //Atribuutit
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	private String title, author,isbn;
+	private String title, author, isbn;
 	private int year;
 	private double price;
-	
-    @ManyToOne
-    @JsonIgnore
-    @JoinColumn(name = "categoryid")
-    private Category category;
-	
+
+	@ManyToOne
+	@JsonIgnore
+	@JoinColumn(name = "categoryid")
+	private Category category;
 
 //Konstruktorit
 
@@ -47,9 +46,8 @@ public class Book {
 		this.price = price;
 		this.category = category;
 	}
-	
-//Getterit ja Setterit
 
+//Getterit ja Setterit
 
 	public long getId() {
 		return id;
@@ -105,9 +103,9 @@ public class Book {
 
 	public void setPrice(double price) {
 		this.price = price;
-	}		
-	
-@Override
+	}
+
+	@Override
 	public String toString() {
 		return "Book [id=" + id + ", title=" + title + ", author=" + author + ", isbn=" + isbn + ", year=" + year
 				+ ", price=" + price + ", category=" + category + "]";
